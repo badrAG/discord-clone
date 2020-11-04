@@ -1,0 +1,17 @@
+.message{
+display: flex;
+padding: 15px;
+background-color: #474b53;
+border-radius: 10px;
+align-content: center;
+margin: 12px;
+}
+.message__info{
+    color: white;
+    padding-left: 15px;
+}
+.message__timestamp{
+font-size: small;
+color: gray;
+margin-left: 32px;
+}
