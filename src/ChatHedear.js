@@ -6,14 +6,14 @@ import SendIcon from '@material-ui/icons/Send';
 import HelpIcon from '@material-ui/icons/Help';
 import EditLocationIcon from '@material-ui/icons/EditLocation';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
-function ChatHedear() {
+function ChatHedear({channelName}) {
     return (
         <div className="chat__hedear">
            <div className="chatHedear__left">
               <h3>
                   <span className="chatHedear__hash">
                  # </span>
-                 Test Channel Name
+                 {channelName}
               </h3>
            </div>
            <div className="chatHedear__right">

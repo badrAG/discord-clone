@@ -1,20 +1,20 @@
 import {createSlice} from '@reduxjs/toolkit';
 export const appSlice = createSlice({
-name:"user",
+name:"app",
 initialState:{
     channelId:null,
     channelName:null
 },
 reducers:{
-    login:(state, action)=>{
-        state.app = action.payload;
+    setChannelInfo:(state, action)=>{
+        state.channelId = action.payload.channelId;
+        state.channelName = action.payload.channelName;
     },
-    logout:(state)=>{
-        state.app= null;
-    }
+   
 }
 } );
-export const {setChannelId}= appSlice.actions;
+export const {setChannelInfo}= appSlice.actions;
+
 export const selectChannelId = (state)=> state.app.channelId;
 export const selectChannelName = (state)=> state.app.channelName;
 export default appSlice.reducer;

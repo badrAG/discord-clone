@@ -16,6 +16,7 @@ import { selectUser } from './features/useSlice';
 function SideBar() {
      const user = useSelector(selectUser);
      const [channels ,setChannels] = useState([]);
+     const [toggel, setToggel] = useState(true);
      console.log(channels)
      useEffect(()=>{
         db.collection('channels').onSnapshot((snapshot)=>
@@ -36,26 +37,29 @@ function SideBar() {
              });
          }
      }
+    const toggeler = () =>{
+        setToggel((prev)=>!prev);
+    }
     return (
         <div className="sidebar">
             <div className="sidebar__top">
-                <h3>badr__ag</h3>
+                <h3>DISCORD</h3>
                 <ExpandMoreIcon/>
             </div>
             <div className="sidebar__channels">
                 <div className="sidebar__channelsHeader">
                     <div className="sidebar__header">
-                        <ExpandMoreIcon/>
-                        <h4>Text Channels</h4>
+                        <ExpandMoreIcon className={toggeler ? 'active':''} id="toggel"/>
+                        <h4>Chat Rooms</h4>
                     </div>
                     <AddIcon onClick={handleAddChannel} className="sidebar__addChannel"/>
                 </div> 
                 <div className="sidebar__channelsList">
                    { 
-                   channels.map(({channel,i})=>(
+                   channels.map(({channel,id})=>(
                        <SidebarChannel 
-                         key={i}
-                         id={i}
+                         key={id}
+                         id={id}
                          nameChannel={channel} />
                    ))
                      }
@@ -67,7 +71,7 @@ function SideBar() {
             fontSize='large'
             />
             <div className="sidebar__vioceInfo">
-                <h3>Vioce Connected</h3>
+                <h3>Voice Connected</h3>
                 <p>Stream</p>
             </div>
             <div className="sidebar__vioceIcons">
@@ -77,6 +81,9 @@ function SideBar() {
           </div>
           <div className="sidebar__profile">
               <Avatar onClick={()=> auth.signOut()} src={user.photo} />
+              <div className="statut__contener">
+                   <span className="statut"></span>
+              </div>
               <div className="sidebar__profileInfo">
                 <h3>{user.displayName}</h3>
                 <p>#{user.uid.substring(0,5)}</p>

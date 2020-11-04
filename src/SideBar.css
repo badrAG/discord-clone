@@ -17,11 +17,12 @@
 .sidebar__channels{
     flex: 1;
 }
-.sidebar__addChannel{
+.sidebar__addChannel
+{
     cursor: pointer;
 }
 .sidebar__addChannel:hover{
-    color: wheat;
+    color: white;
 }
 .sidebar__channelsHeader{
    display: flex;
@@ -65,4 +66,35 @@ padding: 10px;
 .sidebar__profileInfo>h3{
 color: white;
 }
-
+.statut{
+height: 12px;
+width: 12px;
+border-radius: 50%;
+background-color: rgb(21, 255, 0);
+position: absolute;
+bottom: 5px;
+left: 3px;
+}
+.statut__contener{
+position: absolute;
+display: block;
+border-radius: 50%;
+left: 37px;
+bottom:23px;
+width: 20px;
+height: 20px;
+background-color:#2f3135;
+}
+.sidebar__profile>.MuiSvgIcon-root{
+    position: relative;
+}
+.sidebar__header> .MuiSvgIcon-root .active{
+    display: none;
+    
+}
+#toggel{
+   cursor: pointer;
+}
+#toggel:hover{
+    color: white;
+ }
