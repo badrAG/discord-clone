@@ -5,6 +5,7 @@
     height: 100vh;
     background-color: #2f3135; 
 }
+
 .sidebar__top{
     display: flex;
     justify-content: space-between;
@@ -15,6 +16,7 @@
     border-bottom: 3px solid rgb(29, 29, 29);
 }
 .sidebar__channels{
+    overflow-y: auto;
     flex: 1;
 }
 .sidebar__addChannel
@@ -62,6 +64,11 @@ font-size: smaller;
 .sidebar__vioceIcons> *,
 .sidebar__infoIcons > *{
 padding: 10px;
+cursor: pointer;
+}
+.sidebar__vioceIcons> *:hover,
+.sidebar__infoIcons > *:hover{
+color: white;
 }
 .sidebar__profileInfo>h3{
 color: white;
@@ -88,13 +95,12 @@ background-color:#2f3135;
 .sidebar__profile>.MuiSvgIcon-root{
     position: relative;
 }
-.sidebar__header> .MuiSvgIcon-root .active{
-    display: none;
-    
-}
-#toggel{
+.toggle{
    cursor: pointer;
 }
-#toggel:hover{
+.toggle:hover{
     color: white;
+ }
+ .active{
+     display: none;
  }

@@ -15,3 +15,15 @@ font-size: small;
 color: gray;
 margin-left: 32px;
 }
+.admin{
+    cursor: pointer;
+    color: gray;
+    font-size: 22px;
+    font-size: 20px !important;
+}
+.admin:hover{
+    color: white;
+}
+.info__profil{
+display: flex;
+}

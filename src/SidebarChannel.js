@@ -11,10 +11,10 @@ function SidebarChannel({id,nameChannel}) {
                 channelName:nameChannel.channelName
             })
         ) }>
-            <h4>
+            <div>
                 <span className="sidebarChannel__hash">#</span>
-                {nameChannel.channelName}
-            </h4>
+                <span className="sidebarChannel__name">{nameChannel.channelName}</span>
+            </div>
         </div>
     )
 }

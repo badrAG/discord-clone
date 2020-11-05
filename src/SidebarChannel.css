@@ -3,14 +3,22 @@ color: white;
 background-color: #40464b;
 }
 .sidebarChannel{
-display: flex;
 padding-left: 15px;
-align-items: center;
+padding-top: 5px;
+padding-bottom: 5px;
 background-color: #2f3135;
 color: gray;
 cursor: pointer;
 }
 .sidebarChannel__hash{
     font-size: 30px;
+    font-weight: bold;
     padding: 8px;
+}
+.sidebarChannel__name{
+    font-size: 21px;
+    font-weight: bold;
+    padding-top: 8px;
+    padding-right: 8px;
+    padding-bottom: 8px;
 }

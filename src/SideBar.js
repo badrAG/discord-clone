@@ -4,22 +4,28 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SignalCellularAltIcon from '@material-ui/icons/SignalCellularAlt';
 import AddIcon from '@material-ui/icons/Add';
 import MicIcon from '@material-ui/icons/Mic';
-import CallIcon from '@material-ui/icons/Call';
+import PhoneEnabledIcon from '@material-ui/icons/PhoneEnabled';
 import SettingsIcon from '@material-ui/icons/Settings';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import SidebarChannel from './SidebarChannel';
 import db,{ auth } from './firebase';
 import HeadsetIcon from '@material-ui/icons/Headset';
-import { Avatar } from '@material-ui/core';
+import { Avatar, Tooltip } from '@material-ui/core';
+import PhoneDisabledIcon from '@material-ui/icons/PhoneDisabled';
+import MicOffIcon from '@material-ui/icons/MicOff';
 import { useSelector } from 'react-redux';
 import { selectUser } from './features/useSlice';
 function SideBar() {
      const user = useSelector(selectUser);
      const [channels ,setChannels] = useState([]);
-     const [toggel, setToggel] = useState(true);
-     console.log(channels)
+     const [toggle, setToggle] = useState(false);
+     const [toggleAudio, setToggleAudio] = useState(false);
+     const [toggleHead, setToggleHead] = useState(false);
+     const [togglephone, setTogglephone] = useState(false);
      useEffect(()=>{
-        db.collection('channels').onSnapshot((snapshot)=>
+        db.collection('channels')
+        .orderBy("channelName","asc")
+        .onSnapshot((snapshot)=>
             setChannels(
                 snapshot.docs.map((doc) => ({
                 id:doc.id,
@@ -30,7 +36,7 @@ function SideBar() {
         )
      },[]);
      const handleAddChannel = ()=>{
-         const channelName = prompt("Enter a new channel name");
+         const channelName = prompt("Enter a new room name");
          if(channelName){
              db.collection('channels').add({
                  channelName:channelName,
@@ -38,7 +44,16 @@ function SideBar() {
          }
      }
     const toggeler = () =>{
-        setToggel((prev)=>!prev);
+        setToggle((prev)=>!prev);
+    }
+    const toggelerAud = () =>{
+        setToggleAudio((prev)=>!prev);
+    }
+    const toggelerHead = () =>{
+        setToggleHead((prev)=>!prev);
+    }
+    const toggelerPhone = () =>{
+        setTogglephone((prev)=>!prev);
     }
     return (
         <div className="sidebar">
@@ -49,12 +64,16 @@ function SideBar() {
             <div className="sidebar__channels">
                 <div className="sidebar__channelsHeader">
                     <div className="sidebar__header">
-                        <ExpandMoreIcon className={toggeler ? 'active':''} id="toggel"/>
+                    <Tooltip title={toggle?"Show rooms":"Hiden rooms"} placement="right">
+                       <ExpandMoreIcon onClick={toggeler} className="toggle"/>
+                       </Tooltip>
                         <h4>Chat Rooms</h4>
                     </div>
-                    <AddIcon onClick={handleAddChannel} className="sidebar__addChannel"/>
+                    <Tooltip title="Add room" placement="bottom">
+                      <AddIcon onClick={handleAddChannel} className="sidebar__addChannel"/>
+                    </Tooltip>
                 </div> 
-                <div className="sidebar__channelsList">
+                <div className={toggle?"active":"sidebar__channelsList"} >
                    { 
                    channels.map(({channel,id})=>(
                        <SidebarChannel 
@@ -76,11 +95,13 @@ function SideBar() {
             </div>
             <div className="sidebar__vioceIcons">
                 <HelpOutlineIcon/>
-                <CallIcon/>
+               {togglephone ? <PhoneEnabledIcon onClick={toggelerPhone}/> :  <PhoneDisabledIcon onClick={toggelerPhone}/>}
             </div>
           </div>
           <div className="sidebar__profile">
-              <Avatar onClick={()=> auth.signOut()} src={user.photo} />
+              <Tooltip title="signOut" placement="top">
+              <Avatar onClick={()=> auth.signOut()} src={user.photo} style={{ cursor:"pointer" }}/>
+              </Tooltip>
               <div className="statut__contener">
                    <span className="statut"></span>
               </div>
@@ -89,9 +110,15 @@ function SideBar() {
                 <p>#{user.uid.substring(0,5)}</p>
               </div>
               <div className="sidebar__infoIcons">
-                <MicIcon/>
-                <HeadsetIcon/>
+               {
+               toggleAudio?
+                <MicOffIcon onClick={toggelerAud}/>:
+                <MicIcon onClick={toggelerAud}/>
+                }
+                <HeadsetIcon onClick={toggelerHead}/>
+
                 <SettingsIcon/>
+                
               </div>
           </div>
         </div>

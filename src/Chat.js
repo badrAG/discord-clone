@@ -57,20 +57,30 @@ function Chat() {
         scrollToBottom();
         setInput("");
     }
-  
+    
     return (
         <div className="chat">
            <ChatHedear channelName={channelName}/>
            <div className="chat__messages" ref={messageEl}>
            {
-               messages.map((msg,i) => (
+               
+            messages.length ? (messages.map((msg,i) => (
                    <Message
                    key={i}
                    timestamp={msg.timestamp}
                    message={msg.message}
                    user={msg.user}
                    />
-             ))
+             ))):(channelName?(<div className="new__message">
+                 <span className="left"></span><p>share your ideas with random people</p><span className="right"></span>
+                
+             </div>):(
+             <div className="info">
+             <div className="info__message">
+                <h2>Welcome to Discord</h2>
+                <p>Choose a room or add a new room to share your ideas with random people</p>
+             </div>
+             </div>))
            }
            
            </div>
